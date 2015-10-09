@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessor :login
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable,
+         :rememberable, :trackable, :validatable
 
   validates :username, :name, :surname, :expiration_date, presence: true
   validates :username, format: { with: /\A[a-z0-9]+\z/ }
