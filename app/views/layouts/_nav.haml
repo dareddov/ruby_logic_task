@@ -1,0 +1,13 @@
+%nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      = link_to 'Project name', root_path, class: 'navbar-brand'
+    #navbar
+      %ul.nav.navbar-nav
+        %li.active
+          = link_to 'Home', root_path
+      .col-sm-3.col-md-3.pull-right
+        - if user_signed_in?
+          .navbar-text
+            = "Logged in as #{current_user.name} #{current_user.surname}"
+            = link_to('Logout', destroy_user_session_path, method: :delete)
