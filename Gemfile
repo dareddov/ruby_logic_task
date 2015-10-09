@@ -14,8 +14,11 @@ gem 'devise', '~> 3.5.2'
 gem 'haml-rails', '~> 0.9.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'simple_form', '~> 3.2.0'
+gem 'roo', '~> 2.1.0'
+gem 'roo-xls', '~> 1.0.0'
 
 group :development, :test do
+  gem 'pry'
   gem 'byebug'
 end
 
