@@ -10,12 +10,6 @@ class User < ActiveRecord::Base
   validates :username, length: { maximum: 8, too_long: "%{count} characters is the maximum allowed"  }
   validate :expiration_date_cannot_be_in_the_past
 
-  def expiration_date_cannot_be_in_the_past
-    if expiration_date.present? && expiration_date < Date.today
-      errors.add(:expiration_date, "can't be in the past")
-    end
-  end
-
   def login=(login)
     @login = login
   end
@@ -30,6 +24,14 @@ class User < ActiveRecord::Base
       where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
     else
       where(conditions.to_h).first
+    end
+  end
+
+  private
+
+  def expiration_date_cannot_be_in_the_past
+    if expiration_date.present? && expiration_date < Date.today
+      errors.add(:expiration_date, "can't be in the past")
     end
   end
 end
