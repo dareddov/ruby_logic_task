@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   validates :username, length: { maximum: 8, too_long: "%{count} characters is the maximum allowed"  }
   validate :expiration_date_cannot_be_in_the_past
 
+  before_save :titleize_names
+
   def login=(login)
     @login = login
   end
@@ -28,6 +30,11 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def titleize_names
+    self.name = name.titleize
+    self.surname = surname.titleize
+  end
 
   def expiration_date_cannot_be_in_the_past
     if expiration_date.present? && expiration_date < Date.today
