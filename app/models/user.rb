@@ -4,6 +4,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :username, :name, :surname, :expiration_date, presence: true
+  validates :username, format: { with: /\A[a-z0-9]+\z/ }
+  validates :username, uniqueness: true
+  validates :username, length: { maximum: 8, too_long: "%{count} characters is the maximum allowed"  }
+  validate :expiration_date_cannot_be_in_the_past
+
+  def expiration_date_cannot_be_in_the_past
+    if expiration_date.present? && expiration_date < Date.today
+      errors.add(:expiration_date, "can't be in the past")
+    end
+  end
+
   def login=(login)
     @login = login
   end
@@ -21,4 +33,3 @@ class User < ActiveRecord::Base
     end
   end
 end
-
