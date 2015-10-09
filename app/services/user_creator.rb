@@ -14,6 +14,6 @@ class UserCreator
   private
 
   def username
-    I18n.transliterate("#{user_params[:name][0..2]}#{user_params[:surname][0..2]}").downcase
+    I18n.transliterate("#{user_params[:name][0..2]}#{user_params[:surname][0..2]}#{rand(1..99)}").downcase
   end
 end
